@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Map | Criyxen</title>
+    <link rel="icon" type="image/png" href="../02_character_and_cat_pack/6.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        if (!localStorage.getItem('user_role')) window.location.replace('../index.html');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="brand"><h1><a href="home.html" data-cfg="brandTitle">Criyxen</a></h1></div>
+        <div class="header-center-tools">
+            <div class="pill-control">
+                <button id="play-pause-btn" aria-label="Play or Pause"><i class="fas fa-play"></i></button>
+                <button id="skip-btn" aria-label="Skip"><i class="fas fa-forward"></i></button>
+                <span id="track-name" style="max-width:115px; overflow:hidden; text-overflow:ellipsis;">Still Here - Lofi Mix</span>
+                <audio id="bg-audio" loop></audio>
+            </div>
+            <div class="pill-control device-clock-pill"><span id="device-live-clock">--:--:--</span></div>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Menu">☰</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="roadmap.html" class="active">Road Map</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="manager.html" class="admin-only nav-manager-link" style="display: none;">Manager</a></li>
+                <li><a href="../index.html" class="nav-auth-btn" id="auth-btn">Switch Role</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="single-page-container">
+        <div id="admin-control-panel" class="card card-accent-red" style="display: none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span style="font-family:'Orbitron'; font-size:0.74rem; color:var(--red-bright);">ADMIN CONTROLS</span>
+                <div style="display:flex; gap:8px;">
+                    <a href="manager.html" class="btn-neon btn-sm" style="border-color:var(--rank-gold); color:var(--rank-gold);">Edit Phases & Deliverables in Manager</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="card">
+            <div style="margin-bottom: 20px;">
+                <span class="access-tier-pill tier-supporter">CREATOR ECOSYSTEM & PRODUCTION TIMELINE</span>
+                <h1 style="font-family:'Orbitron'; font-size:1.45rem; color:#fff; margin-top:8px;">Criyxen Strategic Road Map</h1>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">
+                    Phased production milestones across 2D/3D animation, live streaming, community vault releases, and BSEMC-DAT studio development.
+                </p>
+            </div>
+
+            <div class="pro-roadmap-timeline" id="pro-roadmap-timeline"></div>
+        </section>
+    </main>
+
+    <footer data-cfg="footerText">© 2026 Criyxen • Michael D. Ebin Jr. All Rights Reserved. BSEMC-DAT</footer>
+    <script src="../script.js"></script>
+</body>
+</html>

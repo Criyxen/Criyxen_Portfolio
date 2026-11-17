@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Criyxen</title>
+    <link rel="icon" type="image/png" href="../02_character_and_cat_pack/6.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        if (!localStorage.getItem('user_role')) window.location.replace('../index.html');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="brand"><h1><a href="home.html" data-cfg="brandTitle">Criyxen</a></h1></div>
+        <div class="header-center-tools">
+            <div class="pill-control">
+                <button id="play-pause-btn" aria-label="Play or Pause"><i class="fas fa-play"></i></button>
+                <button id="skip-btn" aria-label="Skip"><i class="fas fa-forward"></i></button>
+                <span id="track-name" style="max-width:115px; overflow:hidden; text-overflow:ellipsis;">instrumental-drift-phonk-145-bpm-dark</span>
+                <audio id="bg-audio" preload="metadata"></audio>
+            </div>
+            <div class="pill-control device-clock-pill"><span id="device-live-clock">--:--:--</span></div>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Menu">☰</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="roadmap.html">Road Map</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="manager.html" class="admin-only nav-manager-link" style="display: none;">Manager</a></li>
+                <li><a href="../index.html" class="nav-auth-btn" id="auth-btn">Switch Role</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Full-Width Editorial Hero Banner -->
+    <section class="editorial-gal-hero" id="editorial-gal-hero">
+        <img id="editorial-hero-bg" src="../02_character_and_cat_pack/6.png" alt="Featured Artwork" class="editorial-hero-bg protected-asset">
+        <div class="editorial-hero-overlay"></div>
+
+        <button type="button" id="gal-hero-prev" class="editorial-hero-arrow arrow-left" aria-label="Previous Featured Artwork">&#10094;</button>
+        <button type="button" id="gal-hero-next" class="editorial-hero-arrow arrow-right" aria-label="Next Featured Artwork">&#10095;</button>
+
+        <div class="editorial-hero-center">
+            <h1 class="editorial-hero-title" id="editorial-hero-title">G A L L E R Y</h1>
+            <p class="editorial-hero-sub" id="editorial-hero-sub">V I S U A L &nbsp; V A U L T</p>
+            <p class="editorial-hero-desc" id="editorial-hero-desc">
+                Exploring frame-by-frame motion, character concept art, and atmospheric visual storytelling. Click any tile below to inspect or download high-resolution pieces.
+            </p>
+        </div>
+    </section>
+
+    <!-- Editorial Split Body: Left Rail + 3-Column Portrait Grid -->
+    <main class="editorial-gal-shell">
+        <aside class="editorial-gal-rail">
+            <div class="rail-search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="gal-search-input" placeholder="Search artwork...">
+            </div>
+
+            <div class="rail-menu-icon"><i class="fas fa-bars"></i></div>
+
+            <ul class="rail-filter-list" id="gal-tier-filters">
+                <li><button type="button" class="rail-filter-btn active" data-tier="all">ALL ARTWORKS</button></li>
+                <li><button type="button" class="rail-filter-btn" data-tier="public">PUBLIC VAULT</button></li>
+                <li><button type="button" class="rail-filter-btn" data-tier="member">MEMBERS ONLY</button></li>
+                <li><button type="button" class="rail-filter-btn" data-tier="supporter">SUPPORTERS VAULT</button></li>
+                <li><a href="projects.html">3D & MOTION</a></li>
+                <li><a href="contact.html">COMMISSIONS</a></li>
+            </ul>
+
+            <div class="rail-footer-block">
+                <div class="rail-social-row">
+                    <span>STAY CONNECTED</span>
+                    <div class="rail-icons">
+                        <a href="https://www.facebook.com/Cryxien2" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/criyxen" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@criyxen" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <a href="home.html" class="rail-outline-cta">SUPPORT CRIYXEN</a>
+            </div>
+        </aside>
+
+        <section class="editorial-gal-main">
+            <form id="upload-gallery-form" class="admin-only editorial-admin-upload" style="display: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <h4 style="font-family:'Orbitron'; color: var(--red-bright); font-size:0.8rem;">UPLOAD NEW EDITORIAL PIECE (ADMIN)</h4>
+                    <span class="access-tier-pill tier-supporter">CREATOR TOOL</span>
+                </div>
+                <div class="manager-grid-2">
+                    <input type="file" id="gal-file" accept="image/*" required>
+                    <select id="gal-access" class="chat-select">
+                        <option value="public">Public (Everyone)</option>
+                        <option value="member">Registered Members & Supporters</option>
+                        <option value="supporter">Supporters Only (Locked)</option>
+                    </select>
+                    <input type="text" id="gal-title" placeholder="Artwork Title (e.g. Dreamscape)" required>
+                    <input type="text" id="gal-caption" placeholder="Short subtitle / description..." required>
+                </div>
+                <button type="submit" class="btn-neon btn-crimson" style="width: 100%; margin-top: 10px;">PUBLISH TO GALLERY</button>
+            </form>
+
+            <div class="editorial-portrait-grid" id="gallery-grid"></div>
+
+            <div class="editorial-statement-block">
+                <p>
+                    CREATING DIGITAL ILLUSTRATION AND FRAME-BY-FRAME ANIMATION IS AN EXPLORATION INTO ATMOSPHERE, LIGHTING, AND CHARACTER IDENTITY. EVERY PIECE IN THE CRIYXEN VAULT CAPTURES A SPECIFIC STUDY IN COLOR HARMONY, SILHOUETTE, AND EMOTIONAL STORYTELLING.
+                </p>
+                <p>
+                    PUBLIC EXHIBITS ARE OPEN TO ALL VISITORS, WHILE EXCLUSIVE WORK-IN-PROGRESS KEYFRAMES, HIGH-RESOLUTION WALLPAPERS, AND LAYERED CONCEPT STUDIES ARE UNLOCKED FOR REGISTERED MEMBERS AND COMMUNITY SUPPORTERS.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="asset-lightbox" class="lightbox-modal">
+        <div class="lightbox-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span id="lb-tier-badge" class="access-tier-pill tier-public">PUBLIC</span>
+                <button type="button" id="lb-close-btn" class="chat-close-btn">&times;</button>
+            </div>
+            <h3 id="lb-title" style="margin-top: 8px; font-family:'Orbitron'; color: #fff;">Asset Title</h3>
+            <div class="lightbox-media-wrap" id="lb-media-wrap">
+                <img id="lb-img" src="" alt="Preview">
+                <div class="lightbox-watermark" id="lb-watermark">Criyxen PROTECTED</div>
+            </div>
+            <p id="lb-desc" style="margin: 0 auto 14px auto; font-size: 0.84rem; color: var(--text-main);"></p>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <a id="lb-download-btn" href="#" download class="btn-neon" style="display: none;">DOWNLOAD RESOURCE</a>
+                <button type="button" id="lb-close-btn-2" class="btn-neon btn-crimson">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <footer data-cfg="footerText">© 2026 Criyxen • Michael D. Ebin Jr. All Rights Reserved. BSEMC-DAT</footer>
+    <script src="../script.js"></script>
+</body>
+</html>

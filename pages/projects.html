@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Criyxen</title>
+    <link rel="icon" type="image/png" href="../02_character_and_cat_pack/6.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        if (!localStorage.getItem('user_role')) window.location.replace('../index.html');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="brand"><h1><a href="home.html" data-cfg="brandTitle">Criyxen</a></h1></div>
+        <div class="header-center-tools">
+            <div class="pill-control">
+                <button id="play-pause-btn" aria-label="Play or Pause"><i class="fas fa-play"></i></button>
+                <button id="skip-btn" aria-label="Skip"><i class="fas fa-forward"></i></button>
+                <span id="track-name" style="max-width:115px; overflow:hidden; text-overflow:ellipsis;">Still Here - Lofi Mix</span>
+                <audio id="bg-audio" loop></audio>
+            </div>
+            <div class="pill-control device-clock-pill"><span id="device-live-clock">--:--:--</span></div>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Menu">☰</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="roadmap.html">Road Map</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="manager.html" class="admin-only nav-manager-link" style="display: none;">Manager</a></li>
+                <li><a href="../index.html" class="nav-auth-btn" id="auth-btn">Switch Role</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="single-page-container">
+        <section class="card">
+            <h2>
+                <span>Ongoing Projects & Vault</span>
+                <button id="add-project-btn" class="btn-neon btn-crimson btn-sm admin-only" style="display: none;">+ Add Project</button>
+            </h2>
+            <p style="margin-bottom: 16px; color: var(--text-muted);">Click any unlocked project to enlarge and view details. Locked vault projects require Member or Supporter access.</p>
+
+            <div class="projects-grid" id="projects-grid">
+                <div class="project-thumb" data-title="Dreamscape" data-desc="Original 2D animated short film concept exploring surreal dream worlds.">
+                    <span class="proj-badge">2D ANIMATION</span>
+                    <strong>Dreamscape</strong>
+                    <span style="font-size:0.74rem; color:var(--text-muted);">Short Film Concept</span>
+                </div>
+                <div class="project-thumb" data-title="Neon Divide" data-desc="Crimson & dark fantasy character design and keyframe action sequence.">
+                    <span class="proj-badge">CHARACTER ART</span>
+                    <strong>Neon Divide</strong>
+                    <span style="font-size:0.74rem; color:var(--text-muted);">Keyframe Sequence</span>
+                </div>
+                <div class="project-thumb" data-title="Little Ghost" data-desc="Stylized 3D environment and lighting study.">
+                    <span class="proj-badge">3D MODELING</span>
+                    <strong>Little Ghost</strong>
+                    <span style="font-size:0.74rem; color:var(--text-muted);">3D Scene Study</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="asset-lightbox" class="lightbox-modal">
+        <div class="lightbox-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span id="lb-tier-badge" class="access-tier-pill tier-public">PUBLIC</span>
+                <button id="lb-close-btn" class="chat-close-btn">&times;</button>
+            </div>
+            <h3 id="lb-title" style="margin-top: 8px; font-family:'Orbitron'; color: #fff;">Asset Title</h3>
+            <div class="lightbox-media-wrap" id="lb-media-wrap">
+                <img id="lb-img" src="" alt="Preview">
+                <div class="lightbox-watermark" id="lb-watermark">Criyxen PROTECTED</div>
+            </div>
+            <p id="lb-desc" style="margin: 0 auto 14px auto; font-size: 0.84rem; color: var(--text-main);"></p>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <a id="lb-download-btn" href="#" download class="btn-neon" style="display: none;">DOWNLOAD</a>
+                <button id="lb-close-btn-2" class="btn-neon btn-crimson">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <footer data-cfg="footerText">© 2026 Criyxen • Michael D. Ebin Jr. All Rights Reserved. BSEMC-DAT</footer>
+    <script src="../script.js"></script>
+</body>
+</html>

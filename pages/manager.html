@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Manager | Criyxen</title>
+    <link rel="icon" type="image/png" href="../02_character_and_cat_pack/6.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        if (localStorage.getItem('user_role') !== 'admin') window.location.replace('home.html');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="brand"><h1><a href="home.html" data-cfg="brandTitle">Criyxen</a></h1></div>
+        <div class="header-center-tools">
+            <div class="pill-control">
+                <button id="play-pause-btn" aria-label="Play or Pause"><i class="fas fa-play"></i></button>
+                <button id="skip-btn" aria-label="Skip"><i class="fas fa-forward"></i></button>
+                <span id="track-name" style="max-width:115px; overflow:hidden; text-overflow:ellipsis;">Still Here - Lofi Mix</span>
+                <audio id="bg-audio" loop></audio>
+            </div>
+            <div class="pill-control device-clock-pill"><span id="device-live-clock">--:--:--</span></div>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Menu">☰</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="roadmap.html">Road Map</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="manager.html" class="active admin-only nav-manager-link">Manager</a></li>
+                <li><a href="../index.html" class="nav-auth-btn" id="auth-btn">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="single-page-container" id="manager-root">
+        <!-- Overview Stats & Backup -->
+        <div class="card card-accent-red">
+            <h2>
+                Criyxen Portfolio Control Center
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button type="button" id="export-db-btn" class="btn-neon btn-sm">Export JSON Backup</button>
+                    <button type="button" id="reset-edits-btn" class="btn-warn-sm">Reset Default Texts</button>
+                </div>
+            </h2>
+            <div class="backend-stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">TOTAL VISITORS</span>
+                    <span class="stat-val" id="stat-visitors">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">TOTAL SUPPORT</span>
+                    <span class="stat-val" id="stat-donations" style="color:var(--red-bright);">₱0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">REGISTERED MEMBERS</span>
+                    <span class="stat-val" id="stat-members">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">CHAT MESSAGES</span>
+                    <span class="stat-val" id="stat-chats">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Site Identity, Status & Links -->
+        <div class="card">
+            <h2>Site Identity, Status & Contact Config</h2>
+            <form id="save-site-config-form">
+                <div class="manager-grid-2">
+                    <div class="form-group">
+                        <label>Brand Title</label>
+                        <input type="text" id="cfg-brandTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Creator Name</label>
+                        <input type="text" id="cfg-creatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Course / Subtitle</label>
+                        <input type="text" id="cfg-courseSubtitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Online Badge Visibility</label>
+                        <select id="cfg-online-status" class="chat-select">
+                            <option value="true">Online (Visible)</option>
+                            <option value="false">Offline (Hidden)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Hero Heading</label>
+                        <input type="text" id="cfg-heroHeading" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hero Tagline</label>
+                        <input type="text" id="cfg-heroTagline" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Activity Status</label>
+                        <input type="text" id="cfg-statusText" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Daily Update Subtitle</label>
+                        <input type="text" id="cfg-dailyUpdateSub" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" id="cfg-contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Calendly Booking URL</label>
+                        <input type="url" id="cfg-calendlyUrl" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Daily Update Body</label>
+                    <textarea id="cfg-dailyUpdateBody" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Footer Copyright Text</label>
+                    <input type="text" id="cfg-footerText" required>
+                </div>
+                <button type="submit" class="btn-neon btn-crimson" style="width:100%;">SAVE GLOBAL SITE CONFIG</button>
+            </form>
+        </div>
+
+        <!-- Streaming Schedule Calendar Manager -->
+        <div class="card">
+            <h2>Streaming Schedule Calendar</h2>
+            <div class="sched-calendar-layout">
+                <!-- Left: Clickable Monthly Calendar -->
+                <div class="sched-calendar-widget">
+                    <div class="sched-cal-header">
+                        <button type="button" id="cal-prev-month" class="btn-neon btn-sm" aria-label="Previous Month">&#10094;</button>
+                        <span id="cal-month-label" style="font-family:'Orbitron'; font-size:0.82rem; color:#fff; letter-spacing:1px;">NOVEMBER 2026</span>
+                        <button type="button" id="cal-next-month" class="btn-neon btn-sm" aria-label="Next Month">&#10095;</button>
+                    </div>
+                    <div class="sched-cal-weekdays">
+                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                    </div>
+                    <div class="sched-cal-grid" id="sched-cal-grid"></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:0.7rem; color:var(--text-muted);">
+                        <span><span class="cal-dot-legend"></span> Scheduled Stream</span>
+                        <button type="button" id="cal-show-all-btn" class="btn-neon btn-sm" style="padding:3px 8px; font-size:0.62rem;">Show All Slots</button>
+                    </div>
+                </div>
+
+                <!-- Right: Time & Topic Input for Selected Calendar Date -->
+                <div class="sched-form-panel">
+                    <form id="mgr-add-sched-form">
+                        <div class="form-group">
+                            <label>Selected Calendar Date</label>
+                            <input type="date" id="mgr-sched-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stream Time</label>
+                            <input type="time" id="mgr-sched-time" value="19:00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stream Topic / Activity</label>
+                            <input type="text" id="mgr-sched-act" placeholder="e.g. 2D Keyframing & Character Rigging" required>
+                        </div>
+                        <button type="submit" class="btn-neon btn-crimson" style="width:100%;">SCHEDULE STREAM</button>
+                    </form>
+                </div>
+            </div>
+
+            <div style="margin-top:16px;">
+                <h4 id="mgr-sched-list-heading" style="font-family:'Orbitron'; font-size:0.72rem; color:var(--purple-bright); margin-bottom:8px;">ALL SCHEDULED STREAMS</h4>
+                <div class="backend-item-list" id="mgr-sched-list"></div>
+            </div>
+        </div>
+
+        <!-- Skill Checklist & Profile Interests -->
+        <div class="manager-grid-2" style="margin-top:20px;">
+            <div class="card" style="margin-top:0;">
+                <h2>Skill Checklist Manager</h2>
+                <form id="mgr-add-check-form" class="inline-add-bar">
+                    <input type="text" id="mgr-check-label" placeholder="New skill milestone..." style="flex:1;" required>
+                    <button type="submit" class="btn-neon btn-crimson btn-sm">Add</button>
+                </form>
+                <div class="backend-item-list" id="mgr-checklist-list"></div>
+            </div>
+
+            <div class="card" style="margin-top:0;">
+                <h2>Games & Hobbies Manager</h2>
+                <form id="mgr-add-game-form" class="inline-add-bar">
+                    <input type="text" id="mgr-game-input" placeholder="Add favorite game..." style="flex:1;" required>
+                    <button type="submit" class="btn-neon btn-sm">Add Game</button>
+                </form>
+                <div class="backend-item-list" id="mgr-games-list" style="margin-bottom:14px;"></div>
+
+                <form id="mgr-add-hobby-form" class="inline-add-bar">
+                    <input type="text" id="mgr-hobby-input" placeholder="Add hobby / skill..." style="flex:1;" required>
+                    <button type="submit" class="btn-neon btn-sm">Add Hobby</button>
+                </form>
+                <div class="backend-item-list" id="mgr-hobbies-list"></div>
+            </div>
+        </div>
+
+        <!-- Road Map Phase Manager -->
+        <div class="card">
+            <h2>Road Map Phase Manager</h2>
+            <form id="mgr-add-rm-form" style="margin-bottom:14px;">
+                <div class="manager-grid-2">
+                    <input type="text" id="mgr-rm-phase" placeholder="Phase Tag (e.g. PHASE 05 • 2027)" required>
+                    <input type="text" id="mgr-rm-title" placeholder="Phase Title" required>
+                    <select id="mgr-rm-status" class="chat-select">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <input type="text" id="mgr-rm-deliv" placeholder="Deliverables (comma separated)">
+                </div>
+                <input type="text" id="mgr-rm-desc" placeholder="Phase summary description..." style="margin-top:10px;" required>
+                <button type="submit" class="btn-neon btn-crimson" style="width:100%; margin-top:10px;">ADD ROAD MAP PHASE</button>
+            </form>
+            <div class="backend-item-list" id="mgr-roadmap-list"></div>
+        </div>
+
+        <!-- Gallery & Projects Manager -->
+        <div class="manager-grid-2" style="margin-top:20px;">
+            <div class="card" style="margin-top:0;">
+                <h2>Gallery Vault Manager</h2>
+                <form id="mgr-add-gal-form" style="margin-bottom:12px;">
+                    <div class="form-group"><input type="file" id="mgr-gal-file" accept="image/*" required></div>
+                    <div class="form-group"><input type="text" id="mgr-gal-title" placeholder="Artwork Title" required></div>
+                    <div class="form-group"><input type="text" id="mgr-gal-caption" placeholder="Caption / Subtitle" required></div>
+                    <div class="form-group">
+                        <select id="mgr-gal-tier" class="chat-select">
+                            <option value="public">Public</option>
+                            <option value="member">Members Only</option>
+                            <option value="supporter">Supporters Only</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-neon btn-crimson" style="width:100%;">UPLOAD ARTWORK</button>
+                </form>
+                <div class="backend-item-list" id="backend-gallery-list"></div>
+            </div>
+
+            <div class="card" style="margin-top:0;">
+                <h2>Projects Vault Manager</h2>
+                <form id="mgr-add-proj-form" style="margin-bottom:12px;">
+                    <div class="form-group"><input type="text" id="mgr-proj-title" placeholder="Project Title" required></div>
+                    <div class="form-group"><input type="text" id="mgr-proj-cat" placeholder="Category (e.g. 2D ANIMATION, 3D)" required></div>
+                    <div class="form-group"><input type="text" id="mgr-proj-desc" placeholder="Project Description" required></div>
+                    <div class="form-group">
+                        <select id="mgr-proj-tier" class="chat-select">
+                            <option value="public">Public</option>
+                            <option value="member">Members Only</option>
+                            <option value="supporter">Supporters Only</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-neon btn-crimson" style="width:100%;">ADD PROJECT</button>
+                </form>
+                <div class="backend-item-list" id="backend-projects-list"></div>
+            </div>
+        </div>
+
+        <!-- Supporters Leaderboard Manager -->
+        <div class="card">
+            <h2>Supporters & Donations Manager</h2>
+            <form id="mgr-add-sup-form" class="inline-add-bar">
+                <input type="text" id="mgr-sup-name" placeholder="Supporter Name" style="flex:1;" required>
+                <input type="number" id="mgr-sup-amt" placeholder="Amount (PHP)" min="1" style="width:140px;" required>
+                <input type="text" id="mgr-sup-msg" placeholder="Support message..." style="flex:1.5;">
+                <button type="submit" class="btn-neon btn-crimson btn-sm">Add Entry</button>
+            </form>
+            <div class="table-responsive">
+                <table class="backend-table">
+                    <thead>
+                        <tr><th>Supporter</th><th>Amount</th><th>Message</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="backend-supporters-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Registered Members Database -->
+        <div class="card">
+            <h2>Registered Members Database</h2>
+            <div class="table-responsive">
+                <table class="backend-table">
+                    <thead>
+                        <tr><th>Username</th><th>Email / Handle</th><th>XP & Level</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="backend-members-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Live Chat Moderation -->
+        <div class="card">
+            <h2>
+                Live Chat Moderation
+                <button type="button" id="clear-chat-btn" class="btn-danger-sm">Clear All Chat</button>
+            </h2>
+            <div class="filter-toolbar">
+                <input type="text" id="filter-chat-user" placeholder="Filter by username...">
+                <select id="filter-chat-role" class="chat-select">
+                    <option value="all">All Roles</option>
+                    <option value="admin">Creator / Admin</option>
+                    <option value="supporter">Supporter</option>
+                    <option value="member">Member</option>
+                    <option value="guest">Guest</option>
+                </select>
+                <input type="date" id="filter-chat-date">
+                <input type="text" id="filter-chat-keyword" placeholder="Keyword...">
+                <button type="button" id="reset-chat-filters" class="btn-neon btn-sm">Reset Filters</button>
+            </div>
+            <div class="table-responsive">
+                <table class="backend-table">
+                    <thead>
+                        <tr><th>Sender</th><th>Role</th><th>Message</th><th>Timestamp</th><th>Action</th></tr>
+                    </thead>
+                    <tbody id="backend-chat-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer data-cfg="footerText">© 2026 Criyxen • Michael D. Ebin Jr. All Rights Reserved. BSEMC-DAT</footer>
+    <script src="../script.js"></script>
+</body>
+</html>

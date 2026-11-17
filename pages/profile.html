@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Criyxen</title>
+    <link rel="icon" type="image/png" href="../02_character_and_cat_pack/6.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        if (!localStorage.getItem('user_role')) window.location.replace('../index.html');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="brand"><h1><a href="home.html" data-cfg="brandTitle">Criyxen</a></h1></div>
+        <div class="header-center-tools">
+            <div class="pill-control">
+                <button id="play-pause-btn" aria-label="Play or Pause"><i class="fas fa-play"></i></button>
+                <button id="skip-btn" aria-label="Skip"><i class="fas fa-forward"></i></button>
+                <span id="track-name" style="max-width:115px; overflow:hidden; text-overflow:ellipsis;">instrumental-drift-phonk-145-bpm-dark</span>
+                <audio id="bg-audio" preload="metadata"></audio>
+            </div>
+            <div class="pill-control device-clock-pill"><span id="device-live-clock">--:--:--</span></div>
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Menu">☰</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="roadmap.html">Road Map</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="manager.html" class="admin-only nav-manager-link" style="display: none;">Manager</a></li>
+                <li><a href="../index.html" class="nav-auth-btn" id="auth-btn">Switch Role</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="single-page-container">
+        <div class="card">
+            <h2>Creator Profile</h2>
+            <div class="profile-split-grid">
+                <div>
+                    <div class="avatar-wrapper">
+                        <div class="avatar-frame">
+                            <img src="../02_character_and_cat_pack/6.png" alt="Criyxen Avatar" class="profile-avatar character-avatar protected-asset">
+                        </div>
+                        <button type="button" class="avatar-edit-overlay avatar-edit-trigger" style="display: none;" title="Edit Character Profile Picture">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="social-icons" style="justify-content:center;">
+                        <a href="https://www.facebook.com/Cryxien2" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/criyxen" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@criyxen" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-family:'Orbitron'; color:#fff; font-size:1.3rem;" data-cfg="creatorName">Michael D. Ebin Jr.</h3>
+                    <p style="color:var(--red-bright); font-size:0.84rem; margin-bottom:12px;" data-cfg="courseSubtitle">BSEMC-DAT • 1st Year</p>
+                    <p class="editable-field" style="font-size:0.88rem; color:var(--text-main); margin-bottom:16px;">
+                        1st Year Bachelor of Science in Entertainment and Multimedia Computing – Digital Animation Technology (BSEMC-DAT) student at Bukidnon State University. Passionate about frame-by-frame animation, character design, and interactive digital experiences.
+                    </p>
+
+                    <h4 style="font-family:'Orbitron'; font-size:0.78rem; color:var(--purple-bright); margin-top:14px;">FAVORITE GAMES</h4>
+                    <div class="interest-tags" id="profile-games-list"></div>
+
+                    <h4 style="font-family:'Orbitron'; font-size:0.78rem; color:var(--purple-bright); margin-top:18px;">CREATIVE HOBBIES & SKILLS</h4>
+                    <div class="interest-tags" id="profile-hobbies-list"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Character Avatar Cropper Modal -->
+    <div id="avatar-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <h3 style="font-family:'Orbitron'; color:var(--red-bright);">Edit Profile Picture</h3>
+            <div class="crop-preview-circle">
+                <img id="crop-preview-img" src="../02_character_and_cat_pack/6.png" alt="Preview">
+            </div>
+            <div class="form-group">
+                <label>Upload New Image</label>
+                <input type="file" id="avatar-file-input" accept="image/*">
+            </div>
+            <div class="slider-row">
+                <label>Zoom</label>
+                <input type="range" id="zoom-slider" min="1" max="2.5" step="0.05" value="1">
+            </div>
+            <div class="slider-row">
+                <label>Horizontal Position</label>
+                <input type="range" id="pos-x-slider" min="-60" max="60" step="1" value="0">
+            </div>
+            <div class="slider-row">
+                <label>Vertical Position</label>
+                <input type="range" id="pos-y-slider" min="-60" max="60" step="1" value="0">
+            </div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+                <button type="button" id="save-avatar-btn" class="btn-neon btn-crimson" style="flex:1;">Save</button>
+                <button type="button" id="close-avatar-modal" class="btn-neon" style="flex:1;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer data-cfg="footerText">© 2026 Criyxen • Michael D. Ebin Jr. All Rights Reserved. BSEMC-DAT</footer>
+    <script src="../script.js"></script>
+</body>
+</html>

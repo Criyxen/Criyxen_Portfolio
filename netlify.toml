@@ -1,0 +1,4 @@
+[build]
+  # This static site is ready to publish; override the invalid UI build command.
+  command = "true"
+  publish = "."
